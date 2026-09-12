@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urban Flow Mobility Assistant</title>
+<style>
+:root{color-scheme:light;--bg:#f4f3ef;--card:#fcfcfb;--line:#e3e1db;--ink:#0b0b0b;--ink2:#52514e;--muted:#76746f;--accent:#2a78d6;--me:#2a78d6;--meInk:#fff;--warn:#a15c00}
+@media (prefers-color-scheme: dark){:root:where(:not([data-theme="light"])){color-scheme:dark;--bg:#121211;--card:#1a1a19;--line:#2e2e2c;--ink:#fff;--ink2:#c3c2b7;--muted:#9a998f;--accent:#3987e5;--me:#3987e5;--meInk:#fff;--warn:#e3a13b}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#121211;--card:#1a1a19;--line:#2e2e2c;--ink:#fff;--ink2:#c3c2b7;--muted:#9a998f;--accent:#3987e5;--me:#3987e5;--meInk:#fff;--warn:#e3a13b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;flex-direction:column;height:100vh}
+header{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+header h1{font-size:17px;margin:0}
+header .mode{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+header button{margin-left:auto}
+main{flex:1;overflow-y:auto;padding:20px}
+.col{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.me{align-self:flex-end;background:var(--me);color:var(--meInk);border-bottom-right-radius:4px}
+.bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
+.bot.clarify{border-left:3px solid var(--accent)}
+.bot.refuse,.bot.error{border-left:3px solid var(--warn)}
+.bot .tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+details{margin-top:8px;font-size:12px;color:var(--ink2);white-space:normal}
+summary{cursor:pointer;color:var(--muted)}
+pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;margin:6px 0 0}
+.tbl{overflow-x:auto;margin-top:8px;white-space:normal}
+table{border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th,td{padding:3px 12px 3px 0;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--accent)}
+form{border-top:1px solid var(--line);padding:14px 20px;background:var(--bg)}
+form .col{flex-direction:row;gap:10px}
+input{flex:1;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px}
+button{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;cursor:pointer}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.typing{color:var(--muted);font-size:13px}
+</style></head>
+<body>
+<header><h1>Urban Flow Mobility Assistant</h1><span class="mode" id="mode">__MODE__ engine</span><button id="reset" title="Start a new conversation">New chat</button></header>
+<main><div class="col" id="log">
+  <div class="msg bot"><div class="tag">Assistant</div>Ask me about 12 months of NYC taxi trips (Apr 2025 – Mar 2026): trips, fares, revenue, tips, zones, routes, payment types and data quality. I show the SQL behind every answer.</div>
+  <div class="chips" id="chips"></div>
+</div></main>
+<form id="f"><div class="col"><input id="q" autocomplete="off" placeholder="e.g. Which 5 zones had the most pickups in March 2026?" aria-label="Your question"><button class="primary">Ask</button></div></form>
+<script>
+const log = document.getElementById('log'), q = document.getElementById('q');
+const EXAMPLES = ['Which 5 zones had the most pickups in March 2026?', 'What is the average fare from LaGuardia to Times Square?',
+  'Show revenue by month for Flex Fare trips', 'What is the busiest hour on weekends in Brooklyn?', 'How long from JFK to Midtown?',
+  'What share of trips are paid in cash?', 'How many refund reversals were recorded per month?'];
+const chips = document.getElementById('chips');
+EXAMPLES.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.onclick = () => ask(t); chips.appendChild(b); });
+const fmt = v => typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 2})) : String(v ?? '');
+function add(cls, text, tag) {
+  const d = document.createElement('div'); d.className = 'msg ' + cls;
+  if (tag) { const t = document.createElement('div'); t.className = 'tag'; t.textContent = tag; d.appendChild(t); }
+  d.appendChild(document.createTextNode(text)); log.appendChild(d); d.scrollIntoView({block: 'end'}); return d;
+}
+async function ask(text) {
+  text = text.trim(); if (!text) return;
+  add('me', text); q.value = ''; chips.remove?.();
+  const wait = add('bot typing', 'Thinking…');
+  try {
+    const r = await fetch('/api/ask', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question: text})});
+    const j = await r.json(); wait.remove();
+    if (j.error) { add('bot error', j.error, 'Error'); return; }
+    const tag = {clarify: 'Needs clarification', refuse: 'Cannot answer', help: 'Help', error: 'Error'}[j.kind] || 'Answer';
+    const d = add('bot ' + j.kind, j.text, tag);
+    if (j.rows && j.rows.length > 1) {
+      const w = document.createElement('div'); w.className = 'tbl'; const t = document.createElement('table');
+      const hr = t.insertRow(); j.columns.forEach(c => { const th = document.createElement('th'); th.textContent = c; hr.appendChild(th); });
+      j.rows.forEach(row => { const tr = t.insertRow(); row.forEach(v => { tr.insertCell().textContent = fmt(v); }); });
+      w.appendChild(t); d.appendChild(w);
+      if (j.total_rows > j.rows.length) d.appendChild(document.createTextNode(`(${j.total_rows - j.rows.length} more rows not shown)`));
+    }
+    if (j.sql) { const s = document.createElement('details'); s.innerHTML = '<summary>Show SQL</summary>'; const p = document.createElement('pre'); p.textContent = j.sql; s.appendChild(p); d.appendChild(s); }
+    document.getElementById('mode').textContent = j.mode + ' engine';
+  } catch (e) { wait.remove(); add('bot error', 'Could not reach the assistant server (' + e.message + ').', 'Error'); }
+}
+document.getElementById('f').onsubmit = e => { e.preventDefault(); ask(q.value); };
+document.getElementById('reset').onclick = async () => { await fetch('/api/reset', {method: 'POST'}); location.reload(); };
+q.focus();
+</script>
+</body></html>
