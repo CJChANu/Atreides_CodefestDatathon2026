@@ -55,7 +55,10 @@ links (e.g. `...html#borough=Queens&from=2025-12`).
 
 ## Track 5 — AI Mobility Assistant
 ```bash
-export ANTHROPIC_API_KEY=...                      # optional: without it the offline engine answers
+# pick ONE engine (or none - the offline engine always works):
+export ANTHROPIC_API_KEY=...                                 # Claude (claude-opus-5)
+export LLM_PROVIDER=groq LLM_API_KEY=...                     # or any OpenAI-compatible provider:
+                                                             # groq | openrouter | gemini | openai
 .venv/bin/python assistant/web.py                 # chat UI at http://localhost:8000
 .venv/bin/python assistant/cli.py --sql           # terminal chat (shows the SQL behind each answer)
 .venv/bin/python assistant/cli.py --ask "Which 5 zones had the most pickups in March 2026?"
@@ -63,6 +66,9 @@ export ANTHROPIC_API_KEY=...                      # optional: without it the off
 * **Claude engine** (`claude-opus-5`, tool use): plans a query, resolves place names with `find_zones`, runs SQL through
   the guard, retries on errors, asks one clarifying question when a question is materially ambiguous, and keeps the
   conversation for follow-ups. Server-side refusal fallbacks are enabled.
+* **OpenAI-compatible engine** (`assistant/openai_engine.py`, standard library only): same tools and safety guard
+  against Groq, OpenRouter, Gemini or OpenAI - lets the assistant run on a provider's free tier.
+  `LLM_MODEL` overrides the default model name if the provider retires it.
 * **Offline engine**: transparent rule-based parser (metric, grouping, zones, period, hours, day type, payment) for
   the common question families — used automatically when no API key is set or the API fails.
 * **Multi-user**: each visitor gets an isolated conversation (session cookie), 20 questions/minute per session;

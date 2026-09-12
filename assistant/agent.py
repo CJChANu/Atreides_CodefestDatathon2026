@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from warehouse import SCHEMA_DOC  # noqa: E402
 import guard  # noqa: E402
 from offline import ALIASES, OfflineAssistant, Result  # noqa: E402
+from openai_engine import LLMUnavailable, OpenAIToolAgent, configured  # noqa: E402
 
 MODEL = "claude-opus-5"
 MAX_STEPS = 8
@@ -62,14 +63,25 @@ TOOLS = [
 
 
 class MobilityAssistant:
-    """mode: 'auto' (Claude if credentials work, else offline) | 'claude' | 'offline'."""
+    """mode: 'auto' | 'claude' | 'llm' (any OpenAI-compatible provider) | 'offline'.
+
+    'auto' prefers Claude when ANTHROPIC_API_KEY is set, then an OpenAI-compatible provider
+    (LLM_PROVIDER + key, e.g. a free Groq/OpenRouter/Gemini tier), then the offline engine.
+    """
 
     def __init__(self, mode="auto"):
         self.con = guard.connect()
         self.offline = OfflineAssistant(self.con)
         self.messages = []
         self.client = None
-        if mode != "offline":
+        self.llm = None
+        if mode in ("auto", "llm"):
+            cfg = configured()
+            if cfg:
+                self.llm = OpenAIToolAgent(SYSTEM, TOOLS, self._run_tool, cfg)
+            elif mode == "llm":
+                raise RuntimeError("No OpenAI-compatible provider configured - set LLM_PROVIDER and LLM_API_KEY.")
+        if mode == "claude" or (mode == "auto" and self.llm is None):
             try:
                 self.client = anthropic.Anthropic()
                 has_profile = (Path.home() / ".config" / "anthropic").exists()   # `ant auth login` profile
@@ -79,7 +91,7 @@ class MobilityAssistant:
                 self.client = None
             if mode == "claude" and self.client is None:
                 raise RuntimeError("No Anthropic credentials found - set ANTHROPIC_API_KEY or use mode='offline'.")
-        self.mode = "claude" if self.client else "offline"
+        self.mode = "claude" if self.client else f"llm:{self.llm.provider}" if self.llm else "offline"
 
     # ------------------------------------------------------------------ tools
     def _find_zones(self, place):
@@ -114,6 +126,16 @@ class MobilityAssistant:
     def ask(self, question: str) -> Result:
         if self.mode == "offline" or not question.strip():
             return self.offline.answer(question)
+        if self.llm is not None:
+            self.llm.messages = self.messages
+            try:
+                return self.llm.ask(question, Result)
+            except LLMUnavailable as e:
+                r = self.offline.answer(question)
+                r.text = f"({self.mode} unavailable: {e}; answered with the offline engine.) " + r.text
+                return r
+            finally:
+                self.messages = self.llm.messages
         start = len(self.messages)          # history is rolled back to here if the API fails mid-turn
         self.messages.append({"role": "user", "content": question})
         trace = []
@@ -155,3 +177,5 @@ class MobilityAssistant:
 
     def reset(self):
         self.messages.clear()
+        if self.llm is not None:
+            self.llm.reset()
