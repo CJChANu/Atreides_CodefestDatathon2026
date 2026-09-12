@@ -1,0 +1,675 @@
+{
+  "quality": {
+    "total_rows": 48601782,
+    "clean_rows": 44110349,
+    "demand_rows": 45843610,
+    "audit": [
+      {
+        "index": "neg_fare",
+        "rows_affected": 2405603,
+        "pct_of_total": 4.95,
+        "decision": "Drop"
+      },
+      {
+        "index": "zero_fare",
+        "rows_affected": 24577,
+        "pct_of_total": 0.051,
+        "decision": "Drop"
+      },
+      {
+        "index": "zero_dist_fare",
+        "rows_affected": 1267110,
+        "pct_of_total": 2.607,
+        "decision": "Drop (fare/duration) \u00b7 Keep (demand)"
+      },
+      {
+        "index": "zero_riders",
+        "rows_affected": 231578,
+        "pct_of_total": 0.476,
+        "decision": "Impute \u2192 1"
+      },
+      {
+        "index": "null_block",
+        "rows_affected": 12405268,
+        "pct_of_total": 25.524,
+        "decision": "Impute + flag"
+      },
+      {
+        "index": "dropoff_before_pu",
+        "rows_affected": 1942,
+        "pct_of_total": 0.004,
+        "decision": "Drop"
+      },
+      {
+        "index": "sub_minute",
+        "rows_affected": 1190046,
+        "pct_of_total": 2.449,
+        "decision": "Drop (except Helix)"
+      },
+      {
+        "index": "helix_zero_duration",
+        "rows_affected": 642536,
+        "pct_of_total": 1.322,
+        "decision": "Keep, duration\u2192NaN"
+      },
+      {
+        "index": "over_3h",
+        "rows_affected": 18613,
+        "pct_of_total": 0.038,
+        "decision": "Drop"
+      },
+      {
+        "index": "unrealistic_speed",
+        "rows_affected": 13589,
+        "pct_of_total": 0.028,
+        "decision": "Drop"
+      },
+      {
+        "index": "extreme_distance",
+        "rows_affected": 2817,
+        "pct_of_total": 0.006,
+        "decision": "Drop"
+      },
+      {
+        "index": "extreme_fare",
+        "rows_affected": 860,
+        "pct_of_total": 0.002,
+        "decision": "Drop"
+      },
+      {
+        "index": "out_of_period",
+        "rows_affected": 170,
+        "pct_of_total": 0.0,
+        "decision": "Drop"
+      },
+      {
+        "index": "unknown_zone",
+        "rows_affected": 360881,
+        "pct_of_total": 0.743,
+        "decision": "Keep as category"
+      },
+      {
+        "index": "rate_99",
+        "rows_affected": 1030466,
+        "pct_of_total": 2.12,
+        "decision": "Keep as category"
+      },
+      {
+        "index": "offline_Y",
+        "rows_affected": 77561,
+        "pct_of_total": 0.16,
+        "decision": "Keep"
+      }
+    ]
+  },
+  "fare": {
+    "comparison": [
+      {
+        "model": "Global median",
+        "MAE": 11.29,
+        "RMSE": 18.446,
+        "R2": -0.142,
+        "MedAE": 6.3
+      },
+      {
+        "model": "Corridor median lookup",
+        "MAE": 4.901,
+        "RMSE": 9.436,
+        "R2": 0.701,
+        "MedAE": 2.79
+      },
+      {
+        "model": "Ridge regression",
+        "MAE": 5.11,
+        "RMSE": 9.043,
+        "R2": 0.725,
+        "MedAE": 3.205
+      },
+      {
+        "model": "LightGBM (default)",
+        "MAE": 3.867,
+        "RMSE": 7.153,
+        "R2": 0.828,
+        "MedAE": 2.35
+      },
+      {
+        "model": "LightGBM (tuned)",
+        "MAE": 3.874,
+        "RMSE": 7.169,
+        "R2": 0.827,
+        "MedAE": 2.351
+      }
+    ],
+    "selected": "LightGBM (tuned)",
+    "final": {
+      "MAE": 3.8736932459671083,
+      "RMSE": 7.168755574559965,
+      "R2": 0.827469239752498,
+      "MedAE": 2.3513452318074926
+    },
+    "val_rmse": {
+      "LightGBM (default)": 7.263199892288653,
+      "LightGBM (tuned)": 7.2521353606123755
+    },
+    "best_params": {
+      "n_estimators": 5000,
+      "learning_rate": 0.03,
+      "num_leaves": 63,
+      "min_child_samples": 300,
+      "subsample": 0.8,
+      "subsample_freq": 1,
+      "colsample_bytree": 0.6,
+      "cat_smooth": 100,
+      "cat_l2": 10,
+      "random_state": 42,
+      "reg_lambda": 0
+    },
+    "best_iteration": 1171,
+    "segments": [
+      {
+        "segment": "Flex Fare",
+        "n": 89156.0,
+        "MAE": 6.423,
+        "RMSE": 10.116,
+        "MedAE": 4.083,
+        "within_$2_%": 26.629,
+        "within_$5_%": 58.087
+      },
+      {
+        "segment": "JFK flat",
+        "n": 7742.0,
+        "MAE": 0.805,
+        "RMSE": 1.372,
+        "MedAE": 0.569,
+        "within_$2_%": 94.95,
+        "within_$5_%": 98.592
+      },
+      {
+        "segment": "Other rates",
+        "n": 14910.0,
+        "MAE": 7.049,
+        "RMSE": 17.299,
+        "MedAE": 3.014,
+        "within_$2_%": 36.405,
+        "within_$5_%": 67.787
+      },
+      {
+        "segment": "Standard meter",
+        "n": 239910.0,
+        "MAE": 2.828,
+        "RMSE": 4.319,
+        "MedAE": 2.027,
+        "within_$2_%": 49.463,
+        "within_$5_%": 85.547
+      }
+    ],
+    "within_5_pct": 78.12053975059565,
+    "ceiling_with_metered_distance": {
+      "MAE": 3.071034298650868,
+      "RMSE": 5.846445778917495,
+      "R2": 0.8852473185170113,
+      "MedAE": 1.6414725728464985
+    }
+  },
+  "duration": {
+    "comparison": [
+      {
+        "model": "Global median",
+        "MAE": 9.186,
+        "RMSE": 14.672,
+        "R2": -0.061,
+        "MedAE": 6.267
+      },
+      {
+        "model": "Corridor median lookup",
+        "MAE": 5.026,
+        "RMSE": 8.835,
+        "R2": 0.615,
+        "MedAE": 3.05
+      },
+      {
+        "model": "Ridge regression",
+        "MAE": 4.733,
+        "RMSE": 7.923,
+        "R2": 0.69,
+        "MedAE": 3.113
+      },
+      {
+        "model": "LightGBM (default)",
+        "MAE": 3.976,
+        "RMSE": 6.325,
+        "R2": 0.803,
+        "MedAE": 2.701
+      },
+      {
+        "model": "LightGBM (tuned)",
+        "MAE": 3.961,
+        "RMSE": 6.311,
+        "R2": 0.804,
+        "MedAE": 2.682
+      }
+    ],
+    "selected": "LightGBM (tuned)",
+    "final": {
+      "MAE": 3.9607389345257764,
+      "RMSE": 6.310991602290175,
+      "R2": 0.8036115200379965,
+      "MedAE": 2.68198776789877
+    },
+    "val_rmse": {
+      "LightGBM (default)": 6.624574884097014,
+      "LightGBM (tuned)": 6.6081466344033215
+    },
+    "best_params": {
+      "n_estimators": 5000,
+      "learning_rate": 0.03,
+      "num_leaves": 255,
+      "min_child_samples": 100,
+      "subsample": 0.8,
+      "subsample_freq": 1,
+      "colsample_bytree": 0.6,
+      "cat_smooth": 100,
+      "cat_l2": 10,
+      "random_state": 42,
+      "reg_lambda": 1
+    },
+    "best_iteration": 1559,
+    "within_2min_pct": 38.901331091817696,
+    "within_5min_pct": 75.52247656771756,
+    "by_trip_length": [
+      {
+        "duration_min": "(0, 10]",
+        "n": "113400.0",
+        "MAE": "2.58",
+        "MAPE_%": "50.82"
+      },
+      {
+        "duration_min": "(10, 20]",
+        "n": "132195.0",
+        "MAE": "3.0",
+        "MAPE_%": "20.99"
+      },
+      {
+        "duration_min": "(20, 30]",
+        "n": "57495.0",
+        "MAE": "4.6",
+        "MAPE_%": "18.98"
+      },
+      {
+        "duration_min": "(30, 45]",
+        "n": "27184.0",
+        "MAE": "7.29",
+        "MAPE_%": "20.22"
+      },
+      {
+        "duration_min": "(45, 60]",
+        "n": "9560.0",
+        "MAE": "10.08",
+        "MAPE_%": "19.64"
+      },
+      {
+        "duration_min": "(60, 180]",
+        "n": "7550.0",
+        "MAE": "17.05",
+        "MAPE_%": "20.7"
+      }
+    ],
+    "ceiling_with_metered_distance": {
+      "MAE": 3.3487067406592073,
+      "RMSE": 5.6268704654488495,
+      "R2": 0.843881403201328,
+      "MedAE": 2.0787529628612442
+    }
+  },
+  "ablation": {
+    "fare": [
+      {
+        "variant": "Full pipeline (final features)",
+        "MAE": 3.867,
+        "RMSE": 7.153,
+        "R2": 0.828,
+        "MedAE": 2.35
+      },
+      {
+        "variant": "\u2212 corridor statistics",
+        "MAE": 3.917,
+        "RMSE": 7.181,
+        "R2": 0.827,
+        "MedAE": 2.415
+      },
+      {
+        "variant": "\u2212 zone IDs (boroughs only)",
+        "MAE": 3.927,
+        "RMSE": 7.348,
+        "R2": 0.819,
+        "MedAE": 2.341
+      },
+      {
+        "variant": "\u00b1 t_index (toggled)",
+        "MAE": 4.144,
+        "RMSE": 7.851,
+        "R2": 0.793,
+        "MedAE": 2.325
+      },
+      {
+        "variant": "\u2212 row cleaning (train on raw rows)",
+        "MAE": 4.093,
+        "RMSE": 7.558,
+        "R2": 0.808,
+        "MedAE": 2.441
+      }
+    ],
+    "duration": [
+      {
+        "variant": "Full pipeline (final features)",
+        "MAE": 3.976,
+        "RMSE": 6.325,
+        "R2": 0.803,
+        "MedAE": 2.701
+      },
+      {
+        "variant": "\u2212 corridor statistics",
+        "MAE": 3.98,
+        "RMSE": 6.28,
+        "R2": 0.806,
+        "MedAE": 2.738
+      },
+      {
+        "variant": "\u2212 zone IDs (boroughs only)",
+        "MAE": 4.073,
+        "RMSE": 6.53,
+        "R2": 0.79,
+        "MedAE": 2.741
+      },
+      {
+        "variant": "\u00b1 t_index (toggled)",
+        "MAE": 4.157,
+        "RMSE": 6.687,
+        "R2": 0.78,
+        "MedAE": 2.743
+      },
+      {
+        "variant": "\u2212 row cleaning (train on raw rows)",
+        "MAE": 4.322,
+        "RMSE": 7.11,
+        "R2": 0.751,
+        "MedAE": 2.867
+      }
+    ]
+  },
+  "demand": {
+    "comparison": [
+      {
+        "model": "Seasonal naive (same hour last week)",
+        "MAE": 38.556,
+        "RMSE": 64.756,
+        "WAPE_%": 22.084,
+        "R2": 0.784
+      },
+      {
+        "model": "4-week hour-of-week mean",
+        "MAE": 31.418,
+        "RMSE": 49.998,
+        "WAPE_%": 17.996,
+        "R2": 0.871
+      },
+      {
+        "model": "LightGBM global (tuned)",
+        "MAE": 28.129,
+        "RMSE": 44.461,
+        "WAPE_%": 16.112,
+        "R2": 0.898
+      }
+    ],
+    "by_horizon": [
+      {
+        "h": "1-24h",
+        "MAE": 27.373,
+        "RMSE": 43.59,
+        "WAPE_%": 15.666,
+        "R2": 0.902
+      },
+      {
+        "h": "25-48h",
+        "MAE": 28.416,
+        "RMSE": 44.976,
+        "WAPE_%": 16.32,
+        "R2": 0.895
+      },
+      {
+        "h": "49-72h",
+        "MAE": 28.599,
+        "RMSE": 44.804,
+        "WAPE_%": 16.35,
+        "R2": 0.897
+      }
+    ],
+    "by_zone": [
+      {
+        "index": "JFK Airport",
+        "MAE": 36.88,
+        "RMSE": 52.65,
+        "WAPE_%": 18.53,
+        "R2": 0.83,
+        "naive_WAPE_%": 25.91
+      },
+      {
+        "index": "LaGuardia Airport",
+        "MAE": 32.66,
+        "RMSE": 50.76,
+        "WAPE_%": 25.86,
+        "R2": 0.71,
+        "naive_WAPE_%": 36.46
+      },
+      {
+        "index": "Lincoln Square East",
+        "MAE": 26.07,
+        "RMSE": 42.5,
+        "WAPE_%": 17.42,
+        "R2": 0.84,
+        "naive_WAPE_%": 23.68
+      },
+      {
+        "index": "Midtown Center",
+        "MAE": 32.47,
+        "RMSE": 54.93,
+        "WAPE_%": 14.88,
+        "R2": 0.92,
+        "naive_WAPE_%": 19.57
+      },
+      {
+        "index": "Midtown East",
+        "MAE": 23.56,
+        "RMSE": 38.19,
+        "WAPE_%": 14.62,
+        "R2": 0.91,
+        "naive_WAPE_%": 19.81
+      },
+      {
+        "index": "Murray Hill",
+        "MAE": 18.8,
+        "RMSE": 27.21,
+        "WAPE_%": 13.73,
+        "R2": 0.91,
+        "naive_WAPE_%": 18.8
+      },
+      {
+        "index": "Penn Station/Madison Sq West",
+        "MAE": 27.32,
+        "RMSE": 41.38,
+        "WAPE_%": 16.96,
+        "R2": 0.79,
+        "naive_WAPE_%": 23.31
+      },
+      {
+        "index": "Times Sq/Theatre District",
+        "MAE": 23.13,
+        "RMSE": 35.86,
+        "WAPE_%": 15.29,
+        "R2": 0.91,
+        "naive_WAPE_%": 19.56
+      },
+      {
+        "index": "Upper East Side North",
+        "MAE": 30.37,
+        "RMSE": 47.8,
+        "WAPE_%": 14.44,
+        "R2": 0.92,
+        "naive_WAPE_%": 20.26
+      },
+      {
+        "index": "Upper East Side South",
+        "MAE": 30.04,
+        "RMSE": 45.97,
+        "WAPE_%": 12.95,
+        "R2": 0.93,
+        "naive_WAPE_%": 18.27
+      }
+    ],
+    "top_zones": [
+      "Upper East Side South",
+      "Midtown Center",
+      "JFK Airport",
+      "Upper East Side North",
+      "Penn Station/Madison Sq West",
+      "Midtown East",
+      "Times Sq/Theatre District",
+      "Lincoln Square East",
+      "LaGuardia Airport",
+      "Murray Hill"
+    ]
+  },
+  "clusters": {
+    "k": 6,
+    "silhouette": {
+      "3": 0.283,
+      "4": 0.247,
+      "5": 0.237,
+      "6": 0.203,
+      "7": 0.184,
+      "8": 0.191,
+      "9": 0.191,
+      "10": 0.186
+    },
+    "summary": [
+      {
+        "archetype": "Manhattan core (business & transit hubs)",
+        "zones": 41,
+        "examples": "Upper East Side South, Upper East Side North, Midtown Center, Times Sq/Theatre District",
+        "morning_pu": 0.129,
+        "late_night_pu": 0.063,
+        "weekend": 0.266
+      },
+      {
+        "archetype": "Mixed-use Manhattan (dining & residential)",
+        "zones": 25,
+        "examples": "Clinton East, West Village, Gramercy, Flatiron",
+        "morning_pu": 0.135,
+        "late_night_pu": 0.136,
+        "weekend": 0.351
+      },
+      {
+        "archetype": "Nightlife districts",
+        "zones": 14,
+        "examples": "East Village, Lower East Side, Alphabet City, Williamsburg (North Side)",
+        "morning_pu": 0.121,
+        "late_night_pu": 0.331,
+        "weekend": 0.503
+      },
+      {
+        "archetype": "Outer-borough residential (morning origins)",
+        "zones": 75,
+        "examples": "East New York, Prospect-Lefferts Gardens, Flatbush/Ditmas Park, Canarsie",
+        "morning_pu": 0.324,
+        "late_night_pu": 0.121,
+        "weekend": 0.279
+      },
+      {
+        "archetype": "Peripheral / low-volume & airports",
+        "zones": 21,
+        "examples": "LaGuardia Airport, East Harlem South, Newark Airport, Melrose South",
+        "morning_pu": 0.202,
+        "late_night_pu": 0.072,
+        "weekend": 0.26
+      },
+      {
+        "archetype": "Uptown & Queens residential",
+        "zones": 58,
+        "examples": "Central Harlem North, Washington Heights South, Hamilton Heights, Astoria",
+        "morning_pu": 0.22,
+        "late_night_pu": 0.139,
+        "weekend": 0.331
+      }
+    ],
+    "top_corridors": {
+      "morning_peak": [
+        {
+          "corridor": "Upper East Side North \u2192 Midtown Center",
+          "trips": 36413.0
+        },
+        {
+          "corridor": "Upper East Side North \u2192 Upper East Side South",
+          "trips": 35645.0
+        },
+        {
+          "corridor": "Upper East Side South \u2192 Upper East Side North",
+          "trips": 34278.0
+        },
+        {
+          "corridor": "Upper East Side South \u2192 Midtown Center",
+          "trips": 26643.0
+        },
+        {
+          "corridor": "Upper East Side North \u2192 Midtown East",
+          "trips": 24425.0
+        },
+        {
+          "corridor": "Penn Station/Madison Sq West \u2192 Union Sq",
+          "trips": 22264.0
+        },
+        {
+          "corridor": "Penn Station/Madison Sq West \u2192 Midtown Center",
+          "trips": 21861.0
+        },
+        {
+          "corridor": "Upper East Side South \u2192 Midtown East",
+          "trips": 20316.0
+        }
+      ],
+      "late_night": [
+        {
+          "corridor": "West Village \u2192 East Village",
+          "trips": 17069.0
+        },
+        {
+          "corridor": "East Village \u2192 Murray Hill",
+          "trips": 16075.0
+        },
+        {
+          "corridor": "Lower East Side \u2192 East Village",
+          "trips": 15167.0
+        },
+        {
+          "corridor": "East Village \u2192 Gramercy",
+          "trips": 13859.0
+        },
+        {
+          "corridor": "East Village \u2192 Lower East Side",
+          "trips": 13208.0
+        },
+        {
+          "corridor": "East Village \u2192 Kips Bay",
+          "trips": 13119.0
+        },
+        {
+          "corridor": "Greenwich Village South \u2192 East Village",
+          "trips": 12149.0
+        },
+        {
+          "corridor": "East Village \u2192 West Village",
+          "trips": 12044.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,235 @@
+loc_id,zone_name,borough_name,archetype
+1,Newark Airport,EWR,Peripheral / low-volume & airports
+3,Allerton/Pelham Gardens,Bronx,Outer-borough residential (morning origins)
+4,Alphabet City,Manhattan,Nightlife districts
+6,Arrochar/Fort Wadsworth,Staten Island,Uptown & Queens residential
+7,Astoria,Queens,Uptown & Queens residential
+9,Auburndale,Queens,Outer-borough residential (morning origins)
+10,Baisley Park,Queens,Uptown & Queens residential
+11,Bath Beach,Brooklyn,Outer-borough residential (morning origins)
+12,Battery Park,Manhattan,Peripheral / low-volume & airports
+13,Battery Park City,Manhattan,Manhattan core (business & transit hubs)
+14,Bay Ridge,Brooklyn,Outer-borough residential (morning origins)
+15,Bay Terrace/Fort Totten,Queens,Outer-borough residential (morning origins)
+16,Bayside,Queens,Uptown & Queens residential
+17,Bedford,Brooklyn,Uptown & Queens residential
+18,Bedford Park,Bronx,Outer-borough residential (morning origins)
+19,Bellerose,Queens,Outer-borough residential (morning origins)
+20,Belmont,Bronx,Outer-borough residential (morning origins)
+21,Bensonhurst East,Brooklyn,Outer-borough residential (morning origins)
+22,Bensonhurst West,Brooklyn,Outer-borough residential (morning origins)
+24,Bloomingdale,Manhattan,Manhattan core (business & transit hubs)
+25,Boerum Hill,Brooklyn,Mixed-use Manhattan (dining & residential)
+26,Borough Park,Brooklyn,Peripheral / low-volume & airports
+28,Briarwood/Jamaica Hills,Queens,Uptown & Queens residential
+29,Brighton Beach,Brooklyn,Peripheral / low-volume & airports
+31,Bronx Park,Bronx,Peripheral / low-volume & airports
+32,Bronxdale,Bronx,Outer-borough residential (morning origins)
+33,Brooklyn Heights,Brooklyn,Mixed-use Manhattan (dining & residential)
+34,Brooklyn Navy Yard,Brooklyn,Nightlife districts
+35,Brownsville,Brooklyn,Outer-borough residential (morning origins)
+36,Bushwick North,Brooklyn,Nightlife districts
+37,Bushwick South,Brooklyn,Nightlife districts
+38,Cambria Heights,Queens,Outer-borough residential (morning origins)
+39,Canarsie,Brooklyn,Outer-borough residential (morning origins)
+40,Carroll Gardens,Brooklyn,Mixed-use Manhattan (dining & residential)
+41,Central Harlem,Manhattan,Mixed-use Manhattan (dining & residential)
+42,Central Harlem North,Manhattan,Uptown & Queens residential
+43,Central Park,Manhattan,Manhattan core (business & transit hubs)
+45,Chinatown,Manhattan,Manhattan core (business & transit hubs)
+46,City Island,Bronx,Mixed-use Manhattan (dining & residential)
+47,Claremont/Bathgate,Bronx,Outer-borough residential (morning origins)
+48,Clinton East,Manhattan,Mixed-use Manhattan (dining & residential)
+49,Clinton Hill,Brooklyn,Uptown & Queens residential
+50,Clinton West,Manhattan,Manhattan core (business & transit hubs)
+51,Co-Op City,Bronx,Outer-borough residential (morning origins)
+52,Cobble Hill,Brooklyn,Mixed-use Manhattan (dining & residential)
+53,College Point,Queens,Uptown & Queens residential
+54,Columbia Street,Brooklyn,Mixed-use Manhattan (dining & residential)
+55,Coney Island,Brooklyn,Peripheral / low-volume & airports
+56,Corona,Queens,Uptown & Queens residential
+57,Corona,Queens,Nightlife districts
+58,Country Club,Bronx,Uptown & Queens residential
+60,Crotona Park East,Bronx,Outer-borough residential (morning origins)
+61,Crown Heights North,Brooklyn,Uptown & Queens residential
+62,Crown Heights South,Brooklyn,Outer-borough residential (morning origins)
+63,Cypress Hills,Brooklyn,Outer-borough residential (morning origins)
+64,Douglaston,Queens,Uptown & Queens residential
+65,Downtown Brooklyn/MetroTech,Brooklyn,Uptown & Queens residential
+66,DUMBO/Vinegar Hill,Brooklyn,Mixed-use Manhattan (dining & residential)
+67,Dyker Heights,Brooklyn,Uptown & Queens residential
+68,East Chelsea,Manhattan,Manhattan core (business & transit hubs)
+69,East Concourse/Concourse Village,Bronx,Outer-borough residential (morning origins)
+70,East Elmhurst,Queens,Manhattan core (business & transit hubs)
+71,East Flatbush/Farragut,Brooklyn,Outer-borough residential (morning origins)
+72,East Flatbush/Remsen Village,Brooklyn,Outer-borough residential (morning origins)
+73,East Flushing,Queens,Uptown & Queens residential
+74,East Harlem North,Manhattan,Manhattan core (business & transit hubs)
+75,East Harlem South,Manhattan,Peripheral / low-volume & airports
+76,East New York,Brooklyn,Outer-borough residential (morning origins)
+77,East New York/Pennsylvania Avenue,Brooklyn,Outer-borough residential (morning origins)
+78,East Tremont,Bronx,Outer-borough residential (morning origins)
+79,East Village,Manhattan,Nightlife districts
+80,East Williamsburg,Brooklyn,Nightlife districts
+81,Eastchester,Bronx,Outer-borough residential (morning origins)
+82,Elmhurst,Queens,Uptown & Queens residential
+83,Elmhurst/Maspeth,Queens,Uptown & Queens residential
+85,Erasmus,Brooklyn,Outer-borough residential (morning origins)
+86,Far Rockaway,Queens,Outer-borough residential (morning origins)
+87,Financial District North,Manhattan,Mixed-use Manhattan (dining & residential)
+88,Financial District South,Manhattan,Manhattan core (business & transit hubs)
+89,Flatbush/Ditmas Park,Brooklyn,Outer-borough residential (morning origins)
+90,Flatiron,Manhattan,Mixed-use Manhattan (dining & residential)
+91,Flatlands,Brooklyn,Outer-borough residential (morning origins)
+92,Flushing,Queens,Uptown & Queens residential
+93,Flushing Meadows-Corona Park,Queens,Mixed-use Manhattan (dining & residential)
+94,Fordham South,Bronx,Outer-borough residential (morning origins)
+95,Forest Hills,Queens,Uptown & Queens residential
+96,Forest Park/Highland Park,Queens,Uptown & Queens residential
+97,Fort Greene,Brooklyn,Mixed-use Manhattan (dining & residential)
+98,Fresh Meadows,Queens,Outer-borough residential (morning origins)
+100,Garment District,Manhattan,Manhattan core (business & transit hubs)
+101,Glen Oaks,Queens,Outer-borough residential (morning origins)
+102,Glendale,Queens,Uptown & Queens residential
+106,Gowanus,Brooklyn,Mixed-use Manhattan (dining & residential)
+107,Gramercy,Manhattan,Mixed-use Manhattan (dining & residential)
+108,Gravesend,Brooklyn,Outer-borough residential (morning origins)
+112,Greenpoint,Brooklyn,Nightlife districts
+113,Greenwich Village North,Manhattan,Manhattan core (business & transit hubs)
+114,Greenwich Village South,Manhattan,Mixed-use Manhattan (dining & residential)
+116,Hamilton Heights,Manhattan,Uptown & Queens residential
+117,Hammels/Arverne,Queens,Outer-borough residential (morning origins)
+119,Highbridge,Bronx,Outer-borough residential (morning origins)
+120,Highbridge Park,Manhattan,Uptown & Queens residential
+121,Hillcrest/Pomonok,Queens,Outer-borough residential (morning origins)
+122,Hollis,Queens,Outer-borough residential (morning origins)
+123,Homecrest,Brooklyn,Peripheral / low-volume & airports
+124,Howard Beach,Queens,Uptown & Queens residential
+125,Hudson Sq,Manhattan,Manhattan core (business & transit hubs)
+126,Hunts Point,Bronx,Outer-borough residential (morning origins)
+127,Inwood,Manhattan,Uptown & Queens residential
+128,Inwood Hill Park,Manhattan,Peripheral / low-volume & airports
+129,Jackson Heights,Queens,Uptown & Queens residential
+130,Jamaica,Queens,Uptown & Queens residential
+131,Jamaica Estates,Queens,Outer-borough residential (morning origins)
+132,JFK Airport,Queens,Manhattan core (business & transit hubs)
+133,Kensington,Brooklyn,Uptown & Queens residential
+134,Kew Gardens,Queens,Uptown & Queens residential
+135,Kew Gardens Hills,Queens,Outer-borough residential (morning origins)
+136,Kingsbridge Heights,Bronx,Outer-borough residential (morning origins)
+137,Kips Bay,Manhattan,Manhattan core (business & transit hubs)
+138,LaGuardia Airport,Queens,Peripheral / low-volume & airports
+139,Laurelton,Queens,Outer-borough residential (morning origins)
+140,Lenox Hill East,Manhattan,Manhattan core (business & transit hubs)
+141,Lenox Hill West,Manhattan,Manhattan core (business & transit hubs)
+142,Lincoln Square East,Manhattan,Manhattan core (business & transit hubs)
+143,Lincoln Square West,Manhattan,Manhattan core (business & transit hubs)
+144,Little Italy/NoLiTa,Manhattan,Mixed-use Manhattan (dining & residential)
+145,Long Island City/Hunters Point,Queens,Mixed-use Manhattan (dining & residential)
+146,Long Island City/Queens Plaza,Queens,Uptown & Queens residential
+147,Longwood,Bronx,Outer-borough residential (morning origins)
+148,Lower East Side,Manhattan,Nightlife districts
+149,Madison,Brooklyn,Peripheral / low-volume & airports
+150,Manhattan Beach,Brooklyn,Peripheral / low-volume & airports
+151,Manhattan Valley,Manhattan,Manhattan core (business & transit hubs)
+152,Manhattanville,Manhattan,Uptown & Queens residential
+153,Marble Hill,Manhattan,Uptown & Queens residential
+154,Marine Park/Floyd Bennett Field,Brooklyn,Uptown & Queens residential
+155,Marine Park/Mill Basin,Brooklyn,Peripheral / low-volume & airports
+157,Maspeth,Queens,Nightlife districts
+158,Meatpacking/West Village West,Manhattan,Mixed-use Manhattan (dining & residential)
+159,Melrose South,Bronx,Peripheral / low-volume & airports
+160,Middle Village,Queens,Uptown & Queens residential
+161,Midtown Center,Manhattan,Manhattan core (business & transit hubs)
+162,Midtown East,Manhattan,Manhattan core (business & transit hubs)
+163,Midtown North,Manhattan,Manhattan core (business & transit hubs)
+164,Midtown South,Manhattan,Manhattan core (business & transit hubs)
+165,Midwood,Brooklyn,Peripheral / low-volume & airports
+166,Morningside Heights,Manhattan,Manhattan core (business & transit hubs)
+167,Morrisania/Melrose,Bronx,Outer-borough residential (morning origins)
+168,Mott Haven/Port Morris,Bronx,Uptown & Queens residential
+169,Mount Hope,Bronx,Outer-borough residential (morning origins)
+170,Murray Hill,Manhattan,Manhattan core (business & transit hubs)
+171,Murray Hill-Queens,Queens,Uptown & Queens residential
+173,North Corona,Queens,Nightlife districts
+174,Norwood,Bronx,Peripheral / low-volume & airports
+175,Oakland Gardens,Queens,Outer-borough residential (morning origins)
+177,Ocean Hill,Brooklyn,Outer-borough residential (morning origins)
+178,Ocean Parkway South,Brooklyn,Outer-borough residential (morning origins)
+179,Old Astoria,Queens,Uptown & Queens residential
+180,Ozone Park,Queens,Uptown & Queens residential
+181,Park Slope,Brooklyn,Mixed-use Manhattan (dining & residential)
+182,Parkchester,Bronx,Outer-borough residential (morning origins)
+183,Pelham Bay,Bronx,Outer-borough residential (morning origins)
+185,Pelham Parkway,Bronx,Outer-borough residential (morning origins)
+186,Penn Station/Madison Sq West,Manhattan,Manhattan core (business & transit hubs)
+188,Prospect-Lefferts Gardens,Brooklyn,Outer-borough residential (morning origins)
+189,Prospect Heights,Brooklyn,Mixed-use Manhattan (dining & residential)
+190,Prospect Park,Brooklyn,Uptown & Queens residential
+191,Queens Village,Queens,Outer-borough residential (morning origins)
+192,Queensboro Hill,Queens,Uptown & Queens residential
+193,Queensbridge/Ravenswood,Queens,Uptown & Queens residential
+194,Randalls Island,Manhattan,Peripheral / low-volume & airports
+195,Red Hook,Brooklyn,Outer-borough residential (morning origins)
+196,Rego Park,Queens,Uptown & Queens residential
+197,Richmond Hill,Queens,Outer-borough residential (morning origins)
+198,Ridgewood,Queens,Nightlife districts
+200,Riverdale/North Riverdale/Fieldston,Bronx,Outer-borough residential (morning origins)
+201,Rockaway Park,Queens,Outer-borough residential (morning origins)
+202,Roosevelt Island,Manhattan,Uptown & Queens residential
+203,Rosedale,Queens,Outer-borough residential (morning origins)
+205,Saint Albans,Queens,Outer-borough residential (morning origins)
+207,Saint Michaels Cemetery/Woodside,Queens,Peripheral / low-volume & airports
+208,Schuylerville/Edgewater Park,Bronx,Outer-borough residential (morning origins)
+209,Seaport,Manhattan,Mixed-use Manhattan (dining & residential)
+210,Sheepshead Bay,Brooklyn,Peripheral / low-volume & airports
+211,SoHo,Manhattan,Manhattan core (business & transit hubs)
+212,Soundview/Bruckner,Bronx,Outer-borough residential (morning origins)
+213,Soundview/Castle Hill,Bronx,Outer-borough residential (morning origins)
+215,South Jamaica,Queens,Outer-borough residential (morning origins)
+216,South Ozone Park,Queens,Uptown & Queens residential
+217,South Williamsburg,Brooklyn,Uptown & Queens residential
+218,Springfield Gardens North,Queens,Outer-borough residential (morning origins)
+219,Springfield Gardens South,Queens,Uptown & Queens residential
+220,Spuyten Duyvil/Kingsbridge,Bronx,Uptown & Queens residential
+222,Starrett City,Brooklyn,Peripheral / low-volume & airports
+223,Steinway,Queens,Uptown & Queens residential
+224,Stuy Town/Peter Cooper Village,Manhattan,Mixed-use Manhattan (dining & residential)
+225,Stuyvesant Heights,Brooklyn,Uptown & Queens residential
+226,Sunnyside,Queens,Uptown & Queens residential
+227,Sunset Park East,Brooklyn,Outer-borough residential (morning origins)
+228,Sunset Park West,Brooklyn,Uptown & Queens residential
+229,Sutton Place/Turtle Bay North,Manhattan,Manhattan core (business & transit hubs)
+230,Times Sq/Theatre District,Manhattan,Manhattan core (business & transit hubs)
+231,TriBeCa/Civic Center,Manhattan,Manhattan core (business & transit hubs)
+232,Two Bridges/Seward Park,Manhattan,Mixed-use Manhattan (dining & residential)
+233,UN/Turtle Bay South,Manhattan,Manhattan core (business & transit hubs)
+234,Union Sq,Manhattan,Manhattan core (business & transit hubs)
+235,University Heights/Morris Heights,Bronx,Outer-borough residential (morning origins)
+236,Upper East Side North,Manhattan,Manhattan core (business & transit hubs)
+237,Upper East Side South,Manhattan,Manhattan core (business & transit hubs)
+238,Upper West Side North,Manhattan,Manhattan core (business & transit hubs)
+239,Upper West Side South,Manhattan,Manhattan core (business & transit hubs)
+240,Van Cortlandt Park,Bronx,Outer-borough residential (morning origins)
+241,Van Cortlandt Village,Bronx,Outer-borough residential (morning origins)
+242,Van Nest/Morris Park,Bronx,Peripheral / low-volume & airports
+243,Washington Heights North,Manhattan,Uptown & Queens residential
+244,Washington Heights South,Manhattan,Uptown & Queens residential
+246,West Chelsea/Hudson Yards,Manhattan,Manhattan core (business & transit hubs)
+247,West Concourse,Bronx,Outer-borough residential (morning origins)
+248,West Farms/Bronx River,Bronx,Outer-borough residential (morning origins)
+249,West Village,Manhattan,Mixed-use Manhattan (dining & residential)
+250,Westchester Village/Unionport,Bronx,Outer-borough residential (morning origins)
+252,Whitestone,Queens,Uptown & Queens residential
+254,Williamsbridge/Olinville,Bronx,Outer-borough residential (morning origins)
+255,Williamsburg (North Side),Brooklyn,Nightlife districts
+256,Williamsburg (South Side),Brooklyn,Nightlife districts
+257,Windsor Terrace,Brooklyn,Uptown & Queens residential
+258,Woodhaven,Queens,Outer-borough residential (morning origins)
+259,Woodlawn/Wakefield,Bronx,Outer-borough residential (morning origins)
+260,Woodside,Queens,Uptown & Queens residential
+261,World Trade Center,Manhattan,Manhattan core (business & transit hubs)
+262,Yorkville East,Manhattan,Manhattan core (business & transit hubs)
+263,Yorkville West,Manhattan,Manhattan core (business & transit hubs)
+264,,Unknown,Manhattan core (business & transit hubs)
+265,Outside of NYC,,Uptown & Queens residential
