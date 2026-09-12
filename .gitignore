@@ -1,0 +1,12 @@
+# Python environment / caches
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Rebuildable: python src/warehouse.py
+data/warehouse.duckdb
+
+# OS noise and Word lock files
+.DS_Store
+~$*
