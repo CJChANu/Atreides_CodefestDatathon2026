@@ -6,7 +6,12 @@ endpoint - instead of the Anthropic path in agent.py. Same tools, same SQL guard
 Configure with environment variables:
     LLM_PROVIDER   groq | openrouter | gemini | openai        (or set LLM_BASE_URL yourself)
     LLM_API_KEY    the provider's key   (GROQ_API_KEY / OPENROUTER_API_KEY / GEMINI_API_KEY / OPENAI_API_KEY also work)
-    LLM_MODEL      optional override - check the provider's current model list, names change often
+    LLM_MODEL      optional override - provider catalogues change often, so a default can go stale.
+                   OpenRouter's currently-free models that support tool calling:
+                     curl -s https://openrouter.ai/api/v1/models | python3 -c "import json,sys; \
+                       print('\\n'.join(m['id'] for m in json.load(sys.stdin)['data'] \
+                       if float(m['pricing']['prompt'] or 1)==0 and 'tools' in (m.get('supported_parameters') or [])))"
+                   A model without tool-calling support cannot answer from the data - see the guard in ask().
     LLM_BASE_URL   optional override for any other OpenAI-compatible gateway
 """
 import json
@@ -18,7 +23,7 @@ import urllib.request
 PROVIDERS = {
     # base_url, default model, env var for the key
     "groq":       ("https://api.groq.com/openai/v1", "llama-3.3-70b-versatile", "GROQ_API_KEY"),
-    "openrouter": ("https://openrouter.ai/api/v1", "meta-llama/llama-3.3-70b-instruct:free", "OPENROUTER_API_KEY"),
+    "openrouter": ("https://openrouter.ai/api/v1", "nvidia/nemotron-3-super-120b-a12b:free", "OPENROUTER_API_KEY"),
     "gemini":     ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-2.0-flash", "GEMINI_API_KEY"),
     "openai":     ("https://api.openai.com/v1", "gpt-4o-mini", "OPENAI_API_KEY"),
 }
