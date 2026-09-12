@@ -11,6 +11,7 @@ Configure with environment variables:
 """
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 
@@ -76,6 +77,11 @@ class OpenAIToolAgent:
                 if not calls:
                     text = (msg.get("content") or "").strip()
                     last = next((t for t in reversed(trace) if "rows" in t), None)
+                    # A model that cannot (or did not) call tools will happily invent figures. Any answer that
+                    # states numbers without a query behind it is not trustworthy - hand over to the offline engine.
+                    if last is None and re.search(r"\d", text) and not text.endswith("?"):
+                        raise LLMUnavailable("the model answered with figures but never queried the data "
+                                             "(the chosen model may not support tool calling)")
                     kind = "clarify" if text.endswith("?") and not trace else "answer"
                     return Result(text, last and last["sql"], last["columns"] if last else [],
                                   last["rows"] if last else [], kind=kind)
