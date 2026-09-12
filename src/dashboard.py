@@ -73,6 +73,11 @@ body{margin:0;background:var(--surface-0);color:var(--text-primary);font:14px/1.
 header h1{font-size:28px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
 header p{margin:0;color:var(--text-secondary);max-width:860px}
 .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.golink{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none;font-size:13px;
+  color:var(--text-primary);background:var(--surface-1);border:1px solid var(--hairline);border-radius:999px;padding:7px 14px}
+.golink:hover{border-color:var(--accent);color:var(--accent)}
+.golink .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
 .filters{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:16px;align-items:end;background:var(--surface-0);padding:14px 0 12px;margin:18px 0 8px;border-bottom:1px solid var(--hairline)}
 .filters label{display:flex;flex-direction:column;font-size:12px;color:var(--text-secondary);gap:4px}
 select,button{font:inherit;color:var(--text-primary);background:var(--surface-1);border:1px solid var(--hairline);border-radius:8px;padding:6px 10px}
@@ -124,7 +129,10 @@ th:first-child,td:first-child{text-align:left}
 <body>
 <div class="wrap">
 <header>
-  <div class="eyebrow">Team Atreides · Urban Flow Analytics · management dashboard</div>
+  <div class="topbar">
+    <div class="eyebrow">Team Atreides · Urban Flow Analytics · management dashboard</div>
+    <a class="golink" id="gotoAssistant" href="/assistant"><span class="dot"></span>Ask the mobility assistant →</a>
+  </div>
   <h1>Flex Fare: is upfront pricing paying off?</h1>
   <p>Flex Fare — the app-booked, price-agreed-upfront product — grew from 1 in 6 to more than 1 in 4 trips this year and was repriced in
   December 2025. This dashboard follows one question from problem to action, over all 44.1 M valid trips (Apr 2025 – Mar 2026).</p>
@@ -192,6 +200,9 @@ Flex Fare = settlement code 0. "Metered" = card and cash trips. Figures recomput
 <div id="tip" role="tooltip"></div>
 
 <script>
+// opened from disk? send the assistant link to the hosted instance, otherwise stay on this host
+if (location.protocol === 'file:') document.getElementById('gotoAssistant').href = 'http://atreides-datathon.duckdns.org/assistant';
+
 const D = __DATA__;
 const MONTHS = D.months, B = D.boroughs, P = D.products;
 const MLAB = MONTHS.map(m => { const [y, mo] = m.split('-'); return new Date(+y, +mo - 1, 1).toLocaleString('en-US', {month: 'short'}) + (mo === '01' || m === MONTHS[0] ? " '" + y.slice(2) : ''); });

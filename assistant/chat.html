@@ -9,11 +9,15 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;flex-direction:column;height:100vh}
 header{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
 header h1{font-size:17px;margin:0}
+header .back{text-decoration:none;color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;white-space:nowrap}
+header .back:hover{color:var(--accent);border-color:var(--accent)}
 header .mode{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
 header button{margin-left:auto}
 main{flex:1;overflow-y:auto;padding:20px}
 .col{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 .msg{max-width:88%;padding:10px 14px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.bot code{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:0 4px;font-size:12.5px}
+.bot strong{font-weight:650}
 .me{align-self:flex-end;background:var(--me);color:var(--meInk);border-bottom-right-radius:4px}
 .bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
 .bot.clarify{border-left:3px solid var(--accent)}
@@ -37,7 +41,7 @@ button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
 .typing{color:var(--muted);font-size:13px}
 </style></head>
 <body>
-<header><h1>Urban Flow Mobility Assistant</h1><span class="mode" id="mode">__MODE__ engine</span><button id="reset" title="Start a new conversation">New chat</button></header>
+<header><a class="back" href="/" title="Back to the dashboard">← Dashboard</a><h1>Urban Flow Mobility Assistant</h1><span class="mode" id="mode">__MODE__ engine</span><button id="reset" title="Start a new conversation">New chat</button></header>
 <main><div class="col" id="log">
   <div class="msg bot"><div class="tag">Assistant</div>Ask me about 12 months of NYC taxi trips (Apr 2025 – Mar 2026): trips, fares, revenue, tips, zones, routes, payment types and data quality. I show the SQL behind every answer.</div>
   <div class="chips" id="chips"></div>
@@ -51,10 +55,31 @@ const EXAMPLES = ['Which 5 zones had the most pickups in March 2026?', 'What is 
 const chips = document.getElementById('chips');
 EXAMPLES.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.onclick = () => ask(t); chips.appendChild(b); });
 const fmt = v => typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 2})) : String(v ?? '');
+// Models answer in markdown. Render the small subset they actually use by building DOM nodes -
+// never innerHTML with model output, so nothing in an answer can inject markup.
+function renderInline(line, parent) {
+  for (const part of line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g)) {
+    if (!part) continue;
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const b = document.createElement('strong'); b.textContent = part.slice(2, -2); parent.appendChild(b);
+    } else if (part.startsWith('`') && part.endsWith('`')) {
+      const c = document.createElement('code'); c.textContent = part.slice(1, -1); parent.appendChild(c);
+    } else {
+      parent.appendChild(document.createTextNode(part.replace(/\*(?!\*)/g, '')));
+    }
+  }
+}
+function renderText(text, parent) {
+  text.split('\n').forEach((line, i) => {
+    if (i) parent.appendChild(document.createElement('br'));
+    renderInline(line, parent);
+  });
+}
 function add(cls, text, tag) {
   const d = document.createElement('div'); d.className = 'msg ' + cls;
   if (tag) { const t = document.createElement('div'); t.className = 'tag'; t.textContent = tag; d.appendChild(t); }
-  d.appendChild(document.createTextNode(text)); log.appendChild(d); d.scrollIntoView({block: 'end'}); return d;
+  if (cls === 'me') d.appendChild(document.createTextNode(text)); else renderText(text, d);
+  log.appendChild(d); d.scrollIntoView({block: 'end'}); return d;
 }
 async function ask(text) {
   text = text.trim(); if (!text) return;
