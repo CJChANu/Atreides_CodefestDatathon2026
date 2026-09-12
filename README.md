@@ -65,6 +65,8 @@ export ANTHROPIC_API_KEY=...                      # optional: without it the off
   conversation for follow-ups. Server-side refusal fallbacks are enabled.
 * **Offline engine**: transparent rule-based parser (metric, grouping, zones, period, hours, day type, payment) for
   the common question families — used automatically when no API key is set or the API fails.
+* **Multi-user**: each visitor gets an isolated conversation (session cookie), 20 questions/minute per session;
+  the server binds to 127.0.0.1 and expects a reverse proxy when hosted.
 * **Safety** (`assistant/guard.py`): read-only database with external access disabled and configuration locked;
   one statement only, parsed by DuckDB and required to be SELECT; deny-list for file/extension/settings functions;
   200-row cap and 15-second timeout. Answers are rendered as plain text in the UI.
